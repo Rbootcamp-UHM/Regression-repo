@@ -32,8 +32,13 @@ Function practice and exploring regression with Iris data, and more GitHub pract
 # Helpful Notes on Rmarkdown and Git/GitHub
 ---
 
+# Rmarkdown
+
+[Rmarkdown basics](https://rmarkdown.rstudio.com/authoring_basics.html)
+
 # Generating html with Rmarkdown
 
+From within R (make sure the .Rmd file is in your R working directory): 
    ```{r}
    require(rmarkdown)
    
