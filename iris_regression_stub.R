@@ -1,4 +1,4 @@
-iris <- read.csv("iris")	# Fisherʻs iris dataset
+iris <- read.csv("iris.csv")	# Fisherʻs iris dataset
 dim(iris)	# dimensions
 names(iris)
 
@@ -26,6 +26,10 @@ abline(fit) # drawing the regression line on the plot
 yhat <- slope*x + int # the fitted values
 
 points( x, yhat, pch=3)  # adding the fitted points
+paste("slope=", slope)  # what does this do? Look up help for paste
+round(slope,3) # look up help for round
+			# paste works on character objects, round on numeric
+text(1,2, paste("slope=", slope)) #adding text to plot look up help for text
 
 ## if we want to draw line segments between the 150th
 ## point and the fitted regression value for it:
