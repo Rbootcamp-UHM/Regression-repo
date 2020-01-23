@@ -1,0 +1,82 @@
+---
+title: "Kira's Regression"
+author: "Kira Webster"
+date: "2020-01-22"
+output: html_document
+---
+
+Starting with the iris data like usual, let's get our dimensions and names.
+```{r}
+iris	# Fisherʻs iris dataset
+dim(iris)	# dimensions
+names(iris)
+```
+
+## Renaming iris with more convenient names
+## Accessing vectors within iris, saving as separate objects
+Next, we will rename all of our iris columns with easier names. Then, we define our variables, species, x, and y.
+```{r}
+names(iris) <- c("sepalL", "sepalW",  "petalL", "petalW", "species")
+species <- iris$species   
+x <- iris$petalL
+y <- iris$petalW
+```
+
+## Illustrating regression by graphing 
+These are examples of how to set your intercept and slope. Now we can plot our x and y plot, and create a line of best fit.
+```{r}
+fit <- lm( y ~ x )  #fitting the linear model
+b <- coef( fit ) #grabbing the coefficients
+int <- b[1] #intercept
+slope <- b[2] #slope
+
+plot(x, y) # plotting the data points
+abline(fit) # drawing the regression line on the plot	#look up help for ?abline and figure out how to use		#abline by specify slope and intercept.
+yhat <- slope*x + int #the fitted values
+points( x, yhat, pch=3)  #adding the fitted points
+
+i=150	#If we want to draw line segments between the 150th point and the fitted regression value for it:
+segments( x[i], y[i], x[i], yhat[i], col="red" )
+segments( x, y, x, yhat, col="red", lty=2 )	#R is "vectorized": it will work on vectors all at once:
+
+sse <- (yhat-y)		#Using previously defined formulas for y and yhat, we can determine the SSE.
+SSE <- sum((sse))^2
+
+text(2,2.5, paste("Slope:", slope)) 	#This section is just to add text on top of the graph. The first two numbers are the x and y coordinates that the text will be placed at, then the part in the quotation marks is the title of the text, and the last bit is the variable that will be displayed next to the title.
+text(2,2.25, paste("y-int:", int))
+text(2,2, paste("SSE:", SSE))
+```
+
+# My Function Wrap
+This is my function wrap for the same function above. I have followed the same order as above, but before the function begins you are allowed to define your variables so the function can run with any intercept and slope. After the function, but still in this chunk of text, are examples of intercepts and slopes I tested with this function. 
+```{r}
+myplot <- function(x=iris$petalL, y=iris$petalW, myint=int, myslope=slope)	{
+	yhat <- myslope*x + myint
+	se <- yhat - y
+	sse <- sum(se)^2
+	plot(x, y)
+	abline(myint, myslope)
+	points(x, yhat, pch=3)
+	segments(x, y, x, yhat, col="red", lty=2)
+	text(2,2.5, paste("Slope:", myslope))
+	text(2,2.25, paste("y-int:", myint))
+	text(2,2, paste("SSE:", sse))
+}
+
+myplot()
+myplot(myint=4, myslope=1)
+myplot(myint=1, myslope=4)
+myplot(myint=0.5, myslope=0.5)
+myplot(myint=5, myslope=5)
+myplot(myint=0, myslope=1)
+```
+
+# My Function
+This is my function demonstration. I have used our old friend, the dataset cars, and taken the two variables it gives, speed and distance, for x and y. The dataset does not give units (as far as I know...) so I assumed it was in miles and miles per hour. This function converts those to kilometers and kilometers per hour, and then plots it.
+```{r}
+carsfunction <- function(x=cars$speed, y=cars$dist)	{
+	x <- x*1.60934
+	y <- y*1.60934
+	plot(x, y)
+}
+```
