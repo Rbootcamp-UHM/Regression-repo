@@ -5,25 +5,26 @@ date: "2020-01-22"
 output: pdf_document
 ---
 
-First, we set our working directory (varies based on your path):
-```{r}
-#setwd("C:/Users/frase/Documents/Rclass/Regression-repo")
-```
-
-We read in the desired dataset:
+We read in the desired dataset (preloaded to R):
 ```{r}
 read.csv("iris.csv")
 ```
 
-**We then created a function that plots a dataset along with the x points along the line of regression. Then, we wanted to find the difference in y from the actual point to regression line. With this value, the sum of squared errors (sse) is calculated. Finally, the sse, slope, and y-intercept are added to the plot.**
+We then defined objects:
 ```{r}
-plotwithreg <- function(x, y, title, cxlab, cylab) {
-plot(x, y, pch=10, col=iris$Species, main=title, xlab=cxlab, ylab=cylab)
+x <- Slength
+y <- Plength
 lengths.lm <- lm(y~x) 
 coef(lengths.lm)
 b <- coef(lengths.lm)
 int <- b[1]
 slope <- b[2]
+```
+
+**We then created a function that plots a dataset along with the x points along the line of regression. Then, we wanted to find the difference in y from the actual point to regression line. With this value, the sum of squared errors (sse) is calculated. Finally, the sse, slope, and y-intercept are added to the plot.**
+```{r}
+plotwithreg <- function(x, y, title, iint=int, sslope=slope, cxlab, cylab) {
+plot(x, y, pch=10, col=iris$Species, main=title, xlab=cxlab, ylab=cylab)
 abline(lengths.lm, col="blue")
 
 yhat <- slope*x + int
@@ -55,6 +56,27 @@ y <- Plength
 plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
 ```
 
+***Tried it with arbitrary slopes and intercepts***
+```{r}
+slope = 2
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+
+slope = 2.5
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+
+slope = 3
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+```
+
+I needed to reset slope to observe only intercept change from dataset:
+```{r}
+slope <- b[2] 
+int = -6
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+
+int= -5
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+```
 
 # My Function: Normalize/Correct For
 

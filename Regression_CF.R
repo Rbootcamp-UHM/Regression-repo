@@ -1,12 +1,23 @@
-plotwithreg <- function(x, y, title, cxlab, cylab) {
+#setwd("C:/Users/frase/Documents/Rclass/Regression-repo")
 
-plot(x, y, pch=10, col=iris$Species, main=title, xlab=cxlab, ylab=cylab)
+read.csv("iris.csv")
+
+#rename vectors
+Slength <- iris$Sepal.Length
+Plength <- iris$Petal.Length
+
+x <- Slength
+y <- Plength
 lengths.lm <- lm(y~x) 
 coef(lengths.lm)
 b <- coef(lengths.lm)
 int <- b[1]
 slope <- b[2]
-abline(lengths.lm, col="blue")
+
+plotwithreg <- function(x, y, title, cxlab, cylab) {
+
+plot(x, y, pch=10, col=iris$Species, main=title, xlab=cxlab, ylab=cylab)
+abline(int, slope, col="blue")
 
 yhat <- slope*x + int
 points(x, yhat)
@@ -23,15 +34,25 @@ text(7.5,1, paste("intercept=", int))
 legend("topleft", legend=levels(iris$Species), col= c(1,2,3), pch=10)
 }
 
-#rename vectors
-Slength <- iris$Sepal.Length
-Plength <- iris$Petal.Length
-
 #set your x, y, and labels
-x <- Slength
-y <- Plength
 plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
 
+#Try it with arbitrary slopes and intercepts
+slope = 2
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+
+slope = 2.5
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+
+slope = 3
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+
+slope <- b[2] #need to reset slope to observe only intercept change from dataset
+int = -6
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+
+int= -5
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
 
 #My function
 Species <- iris$Species
@@ -43,4 +64,4 @@ plot(Species, y, main=title, xlab=cxlab, ylab=cylab, col= c(5,6,7))
 
 }
 leng <- Plength
-norm(Species, Pwidth, "Normalized Petal Widths to Lengths", "Species", "Petal")
+norm(Species, Pwidth, "Normalized Petal Widths to Lengths", "Species", "Petal Width/Length")
