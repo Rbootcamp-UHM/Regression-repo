@@ -25,7 +25,7 @@ slope <- b[2]
 ```{r}
 plotwithreg <- function(x, y, title, cxlab, cylab) {
 plot(x, y, pch=10, col=iris$Species, main=title, xlab=cxlab, ylab=cylab)
-abline(lengths.lm, col="blue")
+abline(int, slope, col="blue")
 
 yhat <- slope*x + int
 points(x, yhat)
@@ -80,7 +80,7 @@ plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Le
 
 # My Function: Normalize/Correct For
 
-*I wanted to make a function that corrected the petal width by petal length.*
+*I wanted to make a function that adjusted the petal width based on petal length.*
 First, I named the required objects:
 ```{r}
 Species <- iris$Species
