@@ -78,7 +78,7 @@ int= -5
 plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
 ```
 
-# My Function: Normalize/Correct For
+# My Function: Normalize
 
 *I wanted to make a function that adjusted the petal width based on petal length.*
 First, I named the required objects:
