@@ -1,0 +1,81 @@
+---
+title: "Check Regression Line- Comparison of Petal and Sepal Lengths / Widths"
+author: "Claire"
+date: "2020-01-22"
+output: pdf_document
+---
+
+First, we set our working directory (varies based on your path):
+```{r}
+#setwd("C:/Users/frase/Documents/Rclass/Regression-repo")
+```
+
+We read in the desired dataset:
+```{r}
+read.csv("iris.csv")
+```
+
+**We then created a function that plots a dataset along with the x points along the line of regression. Then, we wanted to find the difference in y from the actual point to regression line. With this value, the sum of squared errors (sse) is calculated. Finally, the sse, slope, and y-intercept are added to the plot.**
+```{r}
+plotwithreg <- function(x, y, title, cxlab, cylab) {
+plot(x, y, pch=10, col=iris$Species, main=title, xlab=cxlab, ylab=cylab)
+lengths.lm <- lm(y~x) 
+coef(lengths.lm)
+b <- coef(lengths.lm)
+int <- b[1]
+slope <- b[2]
+abline(lengths.lm, col="blue")
+
+yhat <- slope*x + int
+points(x, yhat)
+segments(x, y, x, yhat)
+
+error <- yhat - y #error in y from actual point to point on regression line
+error^2
+sse <- sum(error^2)
+sse #obtain sum of squared errors
+
+text(7.5,2, paste("sse=", sse))
+text(7.5,1.5, paste("slope=", slope))
+text(7.5,1, paste("intercept=", int))
+legend("topleft", legend=levels(iris$Species), col= c(1,2,3), pch=10)
+}
+```
+
+I named the objects for the variables that I wanted to test:
+```{r}
+Slength <- iris$Sepal.Length
+Plength <- iris$Petal.Length
+```
+
+*Finally, I set x, y, and the labels and used the function we made!*
+```{r}
+x <- Slength
+y <- Plength
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+```
+
+
+# My Function: Normalize/Correct For
+
+*I wanted to make a function that corrected the petal width by petal length.*
+First, I named the required objects:
+```{r}
+Species <- iris$Species
+Plength <- iris$Petal.Length
+Pwidth <- iris$Petal.Width
+```
+
+Then, I created a function called norm that divided the y values by a set length(leng) and plots the results per species.
+```{r}
+norm <- function(x=Species, y, title, cxlab, cylab) {
+y <- y/leng
+plot(Species, y, main=title, xlab=cxlab, ylab=cylab, col= c(5,6,7))
+}
+```
+
+Finally, the lengths(leng) are defined and vectors for x, y, and labels are used in the norm function.
+```{r}
+leng <- Plength
+norm(Species, Pwidth, "Normalized Petal Widths to Lengths", "Species", "Petal")
+```
