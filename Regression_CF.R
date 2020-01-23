@@ -15,7 +15,6 @@ int <- b[1]
 slope <- b[2]
 
 plotwithreg <- function(x, y, title, cxlab, cylab) {
-
 plot(x, y, pch=10, col=iris$Species, main=title, xlab=cxlab, ylab=cylab)
 abline(int, slope, col="blue")
 

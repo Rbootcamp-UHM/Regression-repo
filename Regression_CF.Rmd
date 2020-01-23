@@ -23,7 +23,7 @@ slope <- b[2]
 
 **We then created a function that plots a dataset along with the x points along the line of regression. Then, we wanted to find the difference in y from the actual point to regression line. With this value, the sum of squared errors (sse) is calculated. Finally, the sse, slope, and y-intercept are added to the plot.**
 ```{r}
-plotwithreg <- function(x, y, title, iint=int, sslope=slope, cxlab, cylab) {
+plotwithreg <- function(x, y, title, cxlab, cylab) {
 plot(x, y, pch=10, col=iris$Species, main=title, xlab=cxlab, ylab=cylab)
 abline(lengths.lm, col="blue")
 
