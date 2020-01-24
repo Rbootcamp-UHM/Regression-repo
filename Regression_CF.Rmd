@@ -1,5 +1,5 @@
 ---
-title: "Check Regression Line- Comparison of Petal and Sepal Lengths / Widths"
+title: "Making My Own Functions: Check Regression Line- Comparison of Petal and Sepal Lengths / Widths"
 author: "Claire"
 date: "2020-01-22"
 output: pdf_document
@@ -23,23 +23,23 @@ slope <- b[2]
 
 **We then created a function that plots a dataset along with the x points along the line of regression. Then, we wanted to find the difference in y from the actual point to regression line. With this value, the sum of squared errors (sse) is calculated. Finally, the sse, slope, and y-intercept are added to the plot.**
 ```{r}
-plotwithreg <- function(x, y, title, cxlab, cylab) {
-plot(x, y, pch=10, col=iris$Species, main=title, xlab=cxlab, ylab=cylab)
-abline(int, slope, col="blue")
+plotwithreg <- function(x=Slength, y=Plength, title="Sepal and Petal Morph", cxlab="Sepal Length", cylab="Petal Length", ccol=iris$Species) {
+	plot(x, y, pch=10, col=ccol, main=title, xlab=cxlab, ylab=cylab)
+	abline(int, slope, col="blue")
 
-yhat <- slope*x + int
-points(x, yhat)
-segments(x, y, x, yhat)
+	yhat <- slope*x + int
+	points(x, yhat)
+	segments(x, y, x, yhat)
 
-error <- yhat - y #error in y from actual point to point on regression line
-error^2
-sse <- sum(error^2)
-sse #obtain sum of squared errors
+	error <- yhat - y #error in y from actual point to point on regression line
+	error^2
+	sse <- sum(error^2)
+	sse #obtain sum of squared errors
 
-text(7.5,2, paste("sse=", sse))
-text(7.5,1.5, paste("slope=", slope))
-text(7.5,1, paste("intercept=", int))
-legend("topleft", legend=levels(iris$Species), col= c(1,2,3), pch=10)
+	text(7.5,2, paste("sse=", round(sse, 2)))
+	text(7.5,1.5, paste("slope=", round(slope, 2)))
+	text(7.5,1, paste("intercept=", round(int, 2)))
+	legend("topleft", legend=levels(iris$Species), col= c(1,2,3), pch=10)
 }
 ```
 
@@ -49,12 +49,17 @@ Slength <- iris$Sepal.Length
 Plength <- iris$Petal.Length
 ```
 
-*Finally, I set x, y, and the labels and used the function we made!*
+*Finally, I used the function with default values.*
 ```{r}
-x <- Slength
-y <- Plength
+plotwithreg()
+```
+
+
+*I then set x, y, and the labels to the default values to show that the function is working properly.*
+```{r}
 plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
 ```
+
 
 ***Tried it with arbitrary slopes and intercepts***
 ```{r}
@@ -99,5 +104,5 @@ plot(Species, y, main=title, xlab=cxlab, ylab=cylab, col= c(5,6,7))
 Finally, the lengths(leng) are defined and vectors for x, y, and labels are used in the norm function.
 ```{r}
 leng <- Plength
-norm(Species, Pwidth, "Normalized Petal Widths to Lengths", "Species", "Petal")
+norm(Species, Pwidth, "Normalized Petal Widths to Lengths", "Species", "Petal Width/Length")
 ```
