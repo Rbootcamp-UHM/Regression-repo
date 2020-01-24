@@ -74,7 +74,7 @@ myplot(myint=0, myslope=1)
 # My Function
 This is my function demonstration. I have used our old friend, the dataset cars, and taken the two variables it gives, speed and distance, for x and y. The dataset does not give units (as far as I know...) so I assumed it was in miles and miles per hour. This function converts those to kilometers and kilometers per hour, and then plots it.
 ```{r}
-carsfunction <- function(x=cars$speed, y=cars$dist)	{
+milestokm <- function(x=cars$speed, y=cars$dist)	{
 	x <- x*1.60934
 	y <- y*1.60934
 	plot(x, y)
