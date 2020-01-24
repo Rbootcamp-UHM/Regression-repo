@@ -67,7 +67,7 @@ myplot(myint=0, myslope=1)
 
 
 #My Function
-carsfunction <- function(x=cars$speed, y=cars$dist)	{
+milestokm <- function(x=cars$speed, y=cars$dist)	{
 	x <- x*1.60934
 	y <- y*1.60934
 	plot(x, y)
