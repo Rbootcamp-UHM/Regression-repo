@@ -1,7 +1,7 @@
 ---
 title: "Homework 2: Funky Functions"
 author: "Ethan"
-date: "2020-01-22"
+date: "2020-01-24"
 output: html_document
 ---
 
