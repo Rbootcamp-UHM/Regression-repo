@@ -16,8 +16,7 @@ Next, we will apply some standard housekeeping to make the data easier to work w
 ```{r}
 names(iris) <- c("sepalL", "sepalW",  "petalL", "petalW", "species")
 species <- iris$species
-color <- rep("red", 150)
-color[species == "setosa"] <- "purple"
+color <- rep("purple", 150)
 color[species == "versicolor"] <- "blue"
 color[species == "virginica"] <- "orange"
 ```
@@ -40,16 +39,17 @@ sse
 Now I have created a function called "lineplot()" that will allow you to plot different lines through the dataset by specifying the y-intercept and the slope. Furthermore, I have made the line of best fit values, the default arguments of the function:
 ```{r}
 lineplot <- function(x=iris$petalL, y=iris$sepalW, cint=int, cslope=slope, ccol=color, cpch=16, cxlab="Petal Length", cylab="Sepal Width") {
-		yhat <- cslope*x + cint #This calculates y vlaues on the fitted line from the given cslope and cint
-		error <- yhat - y #This calculates the difference between the true y values and the y values on the fitted line
-		sse <- sum(error^2) #This calculates the sse
-		plot(x, y, col=ccol, pch=cpch, xlab=cxlab, ylab=cylab) #This generates the plot
-		abline(cint, cslope) # drawing the regression line on the plot #This plots a line with the inputed cint and cslope values
-		points(x, yhat, pch=7)  # adds the fitted points
-		segments(x, y, x, yhat, col="black", lty=2 ) #Connects fitted points to the real points
-		text(6,4.4, paste("SSE:", round(sse, 3))) #places text for sse
-		text(6,4.25, paste("slope:", round(cslope, 3))) #places text for slope
-		text(6,4.1, paste("y-int:", round(cint, 3))) #places text for y intercept
+	yhat <- cslope*x + cint
+	error <- yhat - y
+	sse <- sum(error^2)
+	plot(x, y, col=ccol, pch=cpch, xlab=cxlab, ylab=cylab)
+	abline(cint, cslope) # drawing the regression line on the plot
+	points(x, yhat, pch=7)  # adding the fitted points
+	segments(x, y, x, yhat, col="black", lty=2 )
+	legend('top', legend = levels(species), col = c("purple", "blue", "orange"), cex = .8, pch = 19)
+	text(6,4.4, paste("SSE:", round(sse, 3)))
+	text(6,4.25, paste("slope:", round(cslope, 3)))
+	text(6,4.1, paste("y-int:", round(cint, 3)))
 }
 ```
 
@@ -83,7 +83,8 @@ Finally, this function can be applied to any dataset. I have created a mock data
 ```{r}
 m <- matrix(data=c(1:100), ncol=10, nrow=10)
 m
-logtransform(m[,1], m[,7])
+logtransform(m[,1], m[,2])
+logtransform(m[,1], m[,10])
 ```
 
 And that will conclude my brief exploration into the world of funky functions.
