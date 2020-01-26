@@ -2,7 +2,7 @@
 ###HW2###
 #########
 
-read.csv("iris.csv") #read in data set
+iris <- read.csv("iris.csv") #read in data set
 
 iris #to look at the dataset
 
@@ -84,6 +84,7 @@ customplot <- function(x=iris$sepalL, y=iris$petalL, newint=int, newslope=slope)
 	text(5,7, paste("SSE:", sse))
 	text(5,6.5, paste("slope:", slope))
 	text(5,6, paste("intercept:", int))
+	customplot <- sse
 	print(customplot)
 }
 
