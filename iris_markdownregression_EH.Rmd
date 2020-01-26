@@ -42,7 +42,9 @@ lineplot <- function(x=iris$petalL, y=iris$sepalW, cint=int, cslope=slope, ccol=
 	yhat <- cslope*x + cint
 	error <- yhat - y
 	sse <- sum(error^2)
-	plot(x, y, col=ccol, pch=cpch, xlab=cxlab, ylab=cylab)
+	print(paste("SSE:", round(sse, 5)))
+	cylim <- c( min(c(y,yhat)), max(c(y,yhat)))
+	plot(x, y, col=ccol, pch=cpch, xlab=cxlab, ylab=cylab, ylim=cylim)
 	abline(cint, cslope) # drawing the regression line on the plot
 	points(x, yhat, pch=7)  # adding the fitted points
 	segments(x, y, x, yhat, col="black", lty=2 )
