@@ -92,15 +92,23 @@ izzysfunction <- function( x ) { #this is a crazy function with no real purpose,
   return ( (x*x/2+7-12)/1 )
 }
 
+izzysfunction(4)
+
 absolutevalue <- function(y) { #this is an absolute value function
   y= if (y<1)return (y*-1) else y
   print(y)
 }
 
+absolutevalue(-3)
+absolutevalue(3)
+
 absolutevalue2 <- function(y) { #this is another absolute value function
 y = if (y<1) y*-1 else y 
 print(y) 
 }
+
+absolutevalue2(5)
+absolutevalue(-5)
 
 ChangeinPOPsize <- function(POP) { #This function IS AWESOME. You input your population size, and you'll get out the dP/dt or change in population over time
 
@@ -113,4 +121,7 @@ K=1072764 #carrying capacity
 change <- (r*P*((1-(P0-P)/K)))
 print(change)
 }
+
+ChangeinPOPsize(100000)
+
 ```
