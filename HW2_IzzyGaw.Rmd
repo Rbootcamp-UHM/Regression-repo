@@ -1,0 +1,183 @@
+---
+title: "~Crazy Super Awesome HW2~ "
+author: "Izzy Gaw"
+date: "2020-01-26"
+output: html_document
+---
+
+<html>
+<head>
+<style>
+body {background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%);}
+h1   {color: red; font-family:Verdana;background: linear-gradient(-70deg, #fa7c30 30%, rgba(0, 0, 0, 0) 30%);}
+p    {color: green; font-family: verdana;}
+</style>
+</head>
+<body>
+<p>
+
+Hello! This page is Izzy's Homework 2 for R Bootcamp.
+
+On this page, you will find my code and visual representations of the Iris Dataset, a further investigation from our Homework 1.
+ 
+
+```{r}
+
+read.csv("iris.csv") 
+iris 
+dim(iris) 
+names (iris) 
+names(iris) <- c("sepalL", "sepalW",  "petalL", "petalW", "species") 
+names(iris)
+x <- iris$sepalL 
+x 
+y <- iris$petalL 
+y 
+fit <- lm(y ~x) 
+fit #check
+b <- coef( fit ) 
+b 
+int <- b[1] 
+slope <- b[2] 
+plot(x, y) 
+abline(fit)  
+```
+
+
+INITIAL SET-UP. Scatterplot of Sepal Length and Petal Length of three different species sampled (Iris setosa, Iris virginica, and Iris versicolor) and a regression line.
+
+
+```{r}
+read.csv("iris.csv") 
+iris 
+dim(iris) 
+names (iris) 
+names(iris) <- c("sepalL", "sepalW",  "petalL", "petalW", "species") 
+names(iris)
+x <- iris$sepalL 
+y <- iris$petalL 
+fit <- lm(y ~x) 
+fit #check
+b <- coef( fit ) 
+int <- b[1] 
+slope <- b[2] 
+plot(x, y) 
+abline(fit) 
+yhat <- slope*x + int
+points( x, yhat, pch=3)  
+i=150 
+segments( x[i], y[i], x[i], yhat[i], col="red" )
+segments( x, y, x, yhat, col="red", lty=2 ) 
+error <- yhat - y 
+error 
+sse <- sum((error)^2) 
+text( 5, 7, paste("SSE:111.4592")) 
+text(5, 6.5, paste("intercept=-7.101443 ")) 
+text(5, 6, paste("slope=1.858433 ")) 
+```
+
+ADDING REGRESSION + ERROR. Scatterplot of Sepal Length and Petal Length of the same three species as above, however, here I also added the sum of squared errors lines from the slope to demonstrate that this is in fact the best fitted slope. I have made the lines red so they stand out from the plotted points and the regression line. 
+
+```{r}
+iris 
+dim(iris) 
+names (iris) 
+names(iris) <- c("sepalL", "sepalW",  "petalL", "petalW", "species") 
+names(iris)
+x <- iris$sepalL 
+y <- iris$petalL 
+fit <- lm(y ~x) 
+fit #check
+b <- coef( fit ) 
+int <- b[1] 
+slope <- b[2] 
+plot(x, y) 
+abline(fit) 
+yhat <- slope*x + int
+points( x, yhat, pch=3)  
+i=150 
+segments( x[i], y[i], x[i], yhat[i], col="red" )
+segments( x, y, x, yhat, col="red", lty=2 ) 
+error <- yhat - y 
+error 
+sse <- sum((error)^2) 
+text( 5, 7, paste("SSE:111.4592")) 
+text(5, 6.5, paste("intercept=-7.101443 ")) 
+text(5, 6, paste("slope=1.858433 ")) 
+
+customplot <- function(x=iris$sepalL, y=iris$petalL, newint=int, newslope=slope) {
+	yhat <- newslope*x + newint
+	error <- yhat - y
+	sse <- sum(error^2)
+	plot(x, y)
+	abline(newint, newslope) 
+	points(x, yhat, pch=3)
+	segments(x, y, x, yhat,col="red", lty=2)
+	text(5,7, paste("SSE:", sse))
+	text(5,6.5, paste("slope:", slope))
+	text(5,6, paste("intercept:", int))
+	print(customplot)
+}
+
+customplot() 
+customplot(newslope=3) #slope is not in the right place, moved up
+customplot(newslope=2) #slope is not in the right place, moved up
+customplot(newslope=1) # slope is not in the right place, all the way down
+customplot(newint=-1) #slope barely even on the graph!All the way on the top
+customplot(newint=-8) #below the correct place! 
+customplot(newslope=2, newint=-7) #slope above the correct place
+```
+
+WRAP IN CUSTOM CODE. Here I have made a custom plot function that further demonstrates that the regression slope is truly the best fit. I tried 6 different times to find an error in my found slope, however, it does seem the regression found is the best fit.
+
+```{r}
+
+izzysfunction <- function( x ) { 
+  return ( (x*x/2+7-12)/1 )
+}
+
+izzysfunction(4)
+```
+
+FUNCTIONS. Above is Izzy's function. It is a crazy function just to practice making a function.
+
+
+```{r}
+absolutevalue <- function(y) { 
+  y= if (y<1)return (y*-1) else y
+  print(y)
+}
+
+absolutevalue(-3)
+absolutevalue(3)
+
+absolutevalue2 <- function(y) { 
+y = if (y<1) y*-1 else y 
+print(y) 
+}
+
+absolutevalue2(5)
+absolutevalue(-5)
+```
+
+MORE FUNCTIONS. Here I made two different absolute value functions. They both work!
+
+```{r}
+ChangeinPOPsize <- function(POP) { 
+
+#change=252642.5 #(dP/dt)...change in population size
+r=0.2311 #intrinsic rate of increase (real number)
+P=POP #=1000000  #population
+P0=900000#initial population
+K=1072764 #carrying capacity
+
+change <- (r*P*((1-(P0-P)/K)))
+print(change)
+}
+
+ChangeinPOPsize(100000)
+
+```
+
+
+EVEN MORE FUNCTIONS. Here I made a carrying capacity function. You input the population size in the function, and the output is the change in population over time. The user could also change the parameters inside the function, such as the K or r. 
