@@ -75,14 +75,21 @@ myplot(myint=0, myslope=1)
 The function I have created allows you to convert both x and y by seperate conversion factors that you set yourself. I have used our old friend, the dataset cars, and taken the two variables it gives, speed and distance, for x and y. I looked up the units for these variables and they are mph and feet, respectively. By setting both conversion factors I end up with a graph in kph by meters. I added a line of best fit to better visualize the data. 
 
 ```{r}
+<<<<<<< HEAD
 conversionfunction <- function(x=cars$speed, y=cars$dist, conv1=1.60934, conv2=0.3048)	{
 	x <- x*conv1
 	y <- y*conv2
+=======
+milestokm <- function(x=cars$speed, y=cars$dist)	{
+	x <- x*1.60934
+	y <- y*1.60934
+>>>>>>> 0e60e2f252449c4f19d3241d5a0d30faa4947919
 	plot(x, y)
 	fit <- lm (y~x)
 	abline(fit)
 }
 ```
+<<<<<<< HEAD
 
 These are examples of other datasets and variables I have selected to test this function with. 
 ```{r}
@@ -90,3 +97,5 @@ conversionfunction()		#testing function with cars data, this converts speed from
 conversionfunction(x=women$height, y=women$weight, conv1=2.54, conv2=0.4536)	 #using the dataset women, this converts height from inches to centimeters, and weight from pounds to kilograms
 conversionfunction(x=trees$Girth, y=trees$Height, conv1=2.54, conv2=0.3048)		#using the dataset trees, this converts tree girth from inches to centimeters, and tree height from feet to meters. 
 ```
+=======
+>>>>>>> 0e60e2f252449c4f19d3241d5a0d30faa4947919

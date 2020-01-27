@@ -54,9 +54,15 @@ myplot(myint=0, myslope=1)
 
 
 #My Function
+<<<<<<< HEAD
 conversionfunction <- function(x=cars$speed, y=cars$dist, conv1=1.60934, conv2=0.3048)	{
 	x <- x*conv1
 	y <- y*conv2
+=======
+milestokm <- function(x=cars$speed, y=cars$dist)	{
+	x <- x*1.60934
+	y <- y*1.60934
+>>>>>>> 0e60e2f252449c4f19d3241d5a0d30faa4947919
 	plot(x, y)
 	fit <- lm (y~x)
 	abline(fit)
