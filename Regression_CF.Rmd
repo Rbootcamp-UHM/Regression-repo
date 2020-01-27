@@ -12,6 +12,8 @@ read.csv("iris.csv")
 
 We then defined objects:
 ```{r}
+Slength <- iris$Sepal.Length
+Plength <- iris$Petal.Length
 x <- Slength
 y <- Plength
 lengths.lm <- lm(y~x) 
@@ -23,7 +25,8 @@ slope <- b[2]
 
 **We then created a function that plots a dataset along with the x points along the line of regression. Then, we wanted to find the difference in y from the actual point to regression line. With this value, the sum of squared errors (sse) is calculated. Finally, the sse, slope, and y-intercept are added to the plot.**
 ```{r}
-plotwithreg <- function(x=Slength, y=Plength, title="Sepal and Petal Morph", cxlab="Sepal Length", cylab="Petal Length", ccol=iris$Species) {
+plotwithreg <- function(x=Slength, y=Plength, title="Sepal and Petal Morph", cxlab="Sepal Length", cylab="Petal Length", ccol=iris$Species, int=b[1], slope=b[2]) {
+
 	plot(x, y, pch=10, col=ccol, main=title, xlab=cxlab, ylab=cylab)
 	abline(int, slope, col="blue")
 
@@ -63,24 +66,19 @@ plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Le
 
 ***Tried it with arbitrary slopes and intercepts***
 ```{r}
-slope = 2
-plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length", slope = 2)
 
-slope = 2.5
-plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length", slope = 2.5)
 
-slope = 3
-plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length", slope = 3)
 ```
 
-I needed to reset slope to observe only intercept change from dataset:
+I reset slope to observe only intercept change from dataset:
 ```{r}
-slope <- b[2] 
-int = -6
-plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+slope <- b[2] #need to reset slope to observe only intercept change from dataset
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length", int = -6)
 
-int= -5
-plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length", int= -5)
 ```
 
 # My Function: Normalize
@@ -95,7 +93,7 @@ Pwidth <- iris$Petal.Width
 
 Then, I created a function called norm that divided the y values by a set length(leng) and plots the results per species.
 ```{r}
-norm <- function(x=Species, y, title, cxlab, cylab) {
+norm <- function(x=1, y=2, title="Normalized", cxlab="x", cylab="y") {
 y <- y/leng
 plot(Species, y, main=title, xlab=cxlab, ylab=cylab, col= c(5,6,7))
 }

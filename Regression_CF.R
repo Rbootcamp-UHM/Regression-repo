@@ -1,6 +1,6 @@
 #setwd("C:/Users/frase/Documents/Rclass/Regression-repo")
 
-read.csv("iris.csv")
+iris <- read.csv("iris.csv")
 
 #rename vectors
 Slength <- iris$Sepal.Length
@@ -14,7 +14,8 @@ b <- coef(lengths.lm)
 int <- b[1]
 slope <- b[2]
 
-plotwithreg <- function(x=Slength, y=Plength, title="Sepal and Petal Morph", cxlab="Sepal Length", cylab="Petal Length", ccol=iris$Species) {
+plotwithreg <- function(x=Slength, y=Plength, title="Sepal and Petal Morph", cxlab="Sepal Length", cylab="Petal Length", ccol=iris$Species, int=b[1], slope=b[2]) {
+
 	plot(x, y, pch=10, col=ccol, main=title, xlab=cxlab, ylab=cylab)
 	abline(int, slope, col="blue")
 
@@ -39,28 +40,23 @@ plotwithreg()
 plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
 
 #Try it with arbitrary slopes and intercepts
-slope = 2
-plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length", slope = 2)
 
-slope = 2.5
-plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length", slope = 2.5)
 
-slope = 3
-plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length", slope = 3)
 
 slope <- b[2] #need to reset slope to observe only intercept change from dataset
-int = -6
-plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length", int = -6)
 
-int= -5
-plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length")
+plotwithreg(Slength, Plength, "Sepal and Petal Morph", "Sepal Length", "Petal Length", int= -5)
 
 #My function
 Species <- iris$Species
 Plength <- iris$Petal.Length
 Pwidth <- iris$Petal.Width
 x <- Species
-norm <- function(x=Species, y=leng, title="Normalized Petal Widths to Lengths", cxlab="Species", cylab="Petal Width/Length") {
+norm <- function(x=1, y=2, title="Normalized", cxlab="x", cylab="y") {
 	y <- y/leng
 	plot(x, y, main=title, xlab=cxlab, ylab=cylab, col= c(5,6,7))
 
