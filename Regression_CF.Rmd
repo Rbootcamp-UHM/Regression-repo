@@ -7,7 +7,7 @@ output: pdf_document
 
 We read in the desired dataset (preloaded to R):
 ```{r}
-read.csv("iris.csv")
+iris <- read.csv("iris.csv")
 ```
 
 We then defined objects:
