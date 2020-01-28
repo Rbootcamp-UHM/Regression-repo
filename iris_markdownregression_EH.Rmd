@@ -1,0 +1,92 @@
+---
+title: "Homework 2: Funky Functions"
+author: "Ethan"
+date: "2020-01-24"
+output: html_document
+---
+
+Hello again! This time I would like to present my function that draws not only best fit line through a data set, but also illustrates why the line of best fit actually is the line of best fit.
+
+First, instead of calling the Iris dataset from within R, we will be reading it in from a ".csv" file: 
+```{r}
+iris <- read.csv("iris.csv")
+```
+
+Next, we will apply some standard housekeeping to make the data easier to work with:
+```{r}
+names(iris) <- c("sepalL", "sepalW",  "petalL", "petalW", "species")
+species <- iris$species
+color <- rep("purple", 150)
+color[species == "versicolor"] <- "blue"
+color[species == "virginica"] <- "orange"
+```
+
+Now we will calculate the line of best fit through the data. For this example, we will be comparing Petal Length to Sepal Width:
+```{r}
+x <- iris$petalL
+y <- iris$sepalW
+fit <- lm( y ~ x )  #fitting the linear model
+b <- coef( fit ) #grabbing the coefficients
+int <- b[1] #intercept
+slope <- b[2] #slope
+slope
+yhat <- slope*x + int #the fitted values
+error <- yhat - y
+sse <- sum(error^2)
+sse
+```
+
+Now I have created a function called "lineplot()" that will allow you to plot different lines through the dataset by specifying the y-intercept and the slope. Furthermore, I have made the line of best fit values, the default arguments of the function:
+```{r}
+lineplot <- function(x=iris$petalL, y=iris$sepalW, cint=int, cslope=slope, ccol=color, cpch=16, cxlab="Petal Length", cylab="Sepal Width") {
+	yhat <- cslope*x + cint
+	error <- yhat - y
+	sse <- sum(error^2)
+	print(paste("SSE:", round(sse, 5)))
+	cylim <- c( min(c(y,yhat)), max(c(y,yhat)))
+	plot(x, y, col=ccol, pch=cpch, xlab=cxlab, ylab=cylab, ylim=cylim)
+	abline(cint, cslope) # drawing the regression line on the plot
+	points(x, yhat, pch=7)  # adding the fitted points
+	segments(x, y, x, yhat, col="black", lty=2 )
+	legend('top', legend = levels(species), col = c("purple", "blue", "orange"), cex = .8, pch = 19)
+	text(6,4.4, paste("SSE:", round(sse, 3)))
+	text(6,4.25, paste("slope:", round(cslope, 3)))
+	text(6,4.1, paste("y-int:", round(cint, 3)))
+}
+```
+
+Using our "lineplot()" function, now we can actually change the slope and the y-intercept of the line going through the data and see how the sum square of error changes:
+```{r}
+lineplot() #This plots the line of best fit by default
+lineplot(cint=3.5) #This increases the y intercept; best fit slope
+lineplot(cint=3.2) #This decreases the y intercept; best fit slope
+lineplot(cslope=-.2) #This decreases the slope; best fit y intercept
+lineplot(cslope=-.4) #This decreases the slope even further; best fit y intercept
+lineplot(cint=4, cslope=-.3) #This changes both the slope AND the y intercept 
+```
+
+# FINALE
+
+And for my final trick, I will create a function that plots the log transformation of of any data points you give. I have the default arguments pulling from the iris dataset:
+```{r}
+logtransform <- function(x=iris$petalL, y=iris$sepalW, ccol=color, cpch=16) {
+	x <- log(x)
+	y <- log(y)
+	logfit <- lm(y ~ x)
+	plot(x, y, col=ccol, pch=cpch)
+	abline(logfit)
+}
+
+logtransform(iris$petalW, iris$petalL)
+logtransform(iris$petalL, iris$sepalL)
+```
+
+Finally, this function can be applied to any dataset. I have created a mock dataset using the matrix function to illustrate:
+```{r}
+m <- matrix(data=c(1:100), ncol=10, nrow=10)
+m
+logtransform(m[,1], m[,2])
+logtransform(m[,1], m[,10])
+```
+
+And that will conclude my brief exploration into the world of funky functions.
